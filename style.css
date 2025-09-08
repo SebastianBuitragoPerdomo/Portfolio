@@ -1,0 +1,40 @@
+* { box-sizing: border-box; }
+html,body {
+  height: 100%;
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #111;
+  color: #eee;
+}
+
+.wrap {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+  padding: 0;
+}
+
+.screen {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background-image: url("The_Office_2_No_Flashlight.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Imagen superpuesta: ajusta left/top/width según lo que necesites */
+#overlay {
+  position: absolute;
+  left: 60%;   /* Cambia este valor para mover horizontalmente */
+  top: 20%;    /* Cambia este valor para mover verticalmente */
+  width: 30vw; /* Cambia este valor para ajustar el tamaño */
+  max-width: 600px;
+  min-width: 200px;
+  user-select: none;
+  pointer-events: none;
+}
