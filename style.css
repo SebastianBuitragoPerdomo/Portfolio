@@ -30,11 +30,144 @@ html,body {
 /* Imagen superpuesta: ajusta left/top/width según lo que necesites */
 #overlay {
   position: absolute;
-  left: 60%;   /* Cambia este valor para mover horizontalmente */
-  top: 20%;    /* Cambia este valor para mover verticalmente */
-  width: 30vw; /* Cambia este valor para ajustar el tamaño */
-  max-width: 600px;
+  left: 35%;   /* Cambia este valor para mover horizontalmente */
+  top: 37%;    /* Cambia este valor para mover verticalmente */
+  width: 60vw; /* Cambia este valor para ajustar el tamaño */
   min-width: 200px;
   user-select: none;
   pointer-events: none;
+}
+
+/* Barra interactuable horizontal semi-blanca y transparente */
+.custom-bar {
+  position: fixed;
+  bottom: 3px;   /* Más arriba para que no se superponga */
+  left: 750px;
+  width: 600px;
+  height: 40px;
+  background: rgba(255,255,255,0.32); /* Más transparente */
+  border-radius: 30px; /* Esquinas totalmente redondas */
+  border: 3px solid rgba(255,255,255,0.85); /* Borde blanco semi-grueso */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 102;
+  margin: 0 auto;
+  right: 0;
+}
+
+/* Barra interactuable horizontal semi-roja y transparente */
+.custom-bar-red {
+  position: fixed;
+  bottom: 3px;   /* Puedes ajustar la posición para que no se superponga */
+  left: -700px;
+  width: 600px;
+  height: 40px;
+  background: rgba(255,0,0,0.32); /* Rojo transparente */
+  border-radius: 30px;
+  border: 3px solid rgba(255,0,0,0.85); /* Borde rojo semi-grueso */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 101;
+  margin: 0 auto;
+  right: 0;
+}
+
+/* Grupo de flechas */
+.arrow-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Flecha hacia abajo (SVG) */
+.arrow {
+  display: block;
+  width: 38px;
+  height: 10px;
+  background: none;
+  mask: url('data:image/svg+xml;utf8,<svg width="38" height="10" viewBox="0 0 38 10" xmlns="http://www.w3.org/2000/svg"><polyline points="2,2 19,8 36,2" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>') no-repeat center;
+  -webkit-mask: url('data:image/svg+xml;utf8,<svg width="38" height="10" viewBox="0 0 38 10" xmlns="http://www.w3.org/2000/svg"><polyline points="2,2 19,8 36,2" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>') no-repeat center;
+  background-color: rgba(255,255,255,0.95); /* Blanco fuerte para las flechas */
+}
+
+/* Grupo de flechas roja */
+.arrow-group-red {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Flecha hacia abajo roja (SVG) */
+.arrow-red {
+  display: block;
+  width: 38px;
+  height: 10px;
+  background: none;
+  mask: url('data:image/svg+xml;utf8,<svg width="38" height="10" viewBox="0 0 38 10" xmlns="http://www.w3.org/2000/svg"><polyline points="2,2 19,8 36,2" fill="none" stroke="red" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>') no-repeat center;
+  -webkit-mask: url('data:image/svg+xml;utf8,<svg width="38" height="10" viewBox="0 0 38 10" xmlns="http://www.w3.org/2000/svg"><polyline points="2,2 19,8 36,2" fill="none" stroke="red" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>') no-repeat center;
+  background-color: rgba(255,0,0,0.95); /* Rojo fuerte para las flechas */
+}
+
+/* Animación de parpadeo */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* Icono de interactividad (mano) */
+.custom-bar::before,
+.custom-bar-red::before {
+  content: '';
+  position: absolute;
+  top: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 28px;
+  height: 28px;
+  background: url('data:image/svg+xml;utf8,<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14 4C14.5523 4 15 4.44772 15 5V13H16V7C16 6.44772 16.4477 6 17 6C17.5523 6 18 6.44772 18 7V13H19V9C19 8.44772 19.4477 8 20 8C20.5523 8 21 8.44772 21 9V16.5C21 19.5376 18.5376 22 15.5 22C12.4624 22 10 19.5376 10 16.5V13H13V5C13 4.44772 13.4477 4 14 4Z" fill="rgba(0,0,0,0.45)"/></svg>') no-repeat center;
+  background-size: contain;
+  pointer-events: none;
+  z-index: 200;
+}
+
+/* Efecto de parpadeo en los botones */
+.custom-bar,
+.custom-bar-red {
+  animation: blink 1.2s infinite;
+}
+
+/* Reflejo de espejo al pasar el mouse */
+.custom-bar::after,
+.custom-bar-red::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+  background: linear-gradient(120deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.08) 60%, rgba(255,255,255,0.0) 100%);
+  z-index: 150;
+}
+
+.custom-bar:hover::after,
+.custom-bar-red:hover::after {
+  opacity: 1;
+}
+
+.bar-link {
+  position: absolute;
+  inset: 0;
+  z-index: 300;
+  cursor: pointer;
+  background: transparent;
+  border-radius: inherit;
+  text-decoration: none;
 }
